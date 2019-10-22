@@ -15,14 +15,12 @@ const RecipesFormContainer = props => {
   const [directions, setDirections] = useState([])
   const [errors, setErrors] = useState({})
   const [redirectNumber, setRedirectNumber] = useState(null)
-
-  const ingredientSubmittedHandler = ingredient => {
-    setIngredients([...ingredients, ingredient])
-  }
-
-  const directionSubmittedHandler = direction => {
-    setDirections([...directions, direction])
-  }
+  const [ingredient, setIngredient] = useState({
+    name: "",
+  })
+  const [direction, setDirection] = useState({
+    step: "",
+  })
 
   const handleInputChange = event => {
     setRecipe({
@@ -30,17 +28,97 @@ const RecipesFormContainer = props => {
       [event.currentTarget.id]: event.currentTarget.value
     })
   }
+  const handleIngredientChange = event => {
+    setIngredient({
+      ...ingredient,
+      [event.currentTarget.id]: event.currentTarget.value
+    })
+  }
+
+  const validIngredientSubmission = () => {
+    let submitErrors = {}
+    const requiredFields = ["name"]
+
+    requiredFields.forEach(field => {
+      if(ingredient[field].trim() === "") {
+        submitErrors = {
+          ...submitErrors,
+          [field]: "of ingredient can't be blank"
+        }
+      }
+    })
+
+    setErrors(submitErrors)
+    return _.isEmpty(submitErrors)
+  }
+
+  const ingredientSubmitHandler = event => {
+    event.preventDefault()
+    if (validIngredientSubmission()) {
+      setIngredients([...ingredients, ingredient])
+      setIngredient({
+        name: ""
+      })
+      setErrors({})
+    }
+  }
+
+  const handleDirectionChange = event => {
+    setDirection({
+      ...direction,
+      [event.currentTarget.id]: event.currentTarget.value
+    })
+  }
+
+  const validDirectionSubmission = () => {
+    let submitErrors = {}
+    const requiredFields = ["step"]
+
+    requiredFields.forEach(field => {
+      if(direction[field].trim() === "") {
+        submitErrors = {
+          ...submitErrors,
+          [field]: "can't be blank"
+        }
+      }
+    })
+
+    setErrors(submitErrors)
+    return _.isEmpty(submitErrors)
+  }
+
+  const directionSubmitHandler = event => {
+    event.preventDefault()
+    if (validDirectionSubmission()) {
+      setDirections([...directions, direction])
+      setDirection({
+        step: ""
+      })
+      setErrors({})
+    }
+  }
 
   const validForSubmission = () => {
     let submitErrors = {}
-
     const requiredFields = ["name"]
 
     requiredFields.forEach(field => {
       if(recipe[field].trim() === "") {
         submitErrors = {
           ...submitErrors,
-          [field]: "can't be blank"
+          [field]: "Please enter"
+        }
+      }
+      if(ingredients.length===0){
+        submitErrors = {
+          ...submitErrors,
+          ["ingredients"]: "Please enter"
+        }
+      }
+      if(directions.length===0){
+        submitErrors = {
+          ...submitErrors,
+          ["directions"]: "Please enter"
         }
       }
     })
@@ -83,6 +161,9 @@ const RecipesFormContainer = props => {
       setRecipe({
         name: ""
       })
+      setIngredients([])
+      setDirections([])
+      setErrors({})
     }
   }
 
@@ -98,7 +179,7 @@ const RecipesFormContainer = props => {
           <ErrorList
             errors={errors}
           />
-          <label htmlFor="name"><h6>Name:</h6>
+          <label htmlFor="name"><strong>Name:</strong>
             <input
               type="text"
               id="name"
@@ -106,16 +187,24 @@ const RecipesFormContainer = props => {
               onChange={handleInputChange}
             />
           </label>
-          <h6>Ingredients:</h6>
+          <strong>Ingredients:</strong>
           <IngredientList ingredients={ingredients} />
-          <IngredientForm onIngredientSubmitted={ingredientSubmittedHandler} />
-          <h6>Directions:</h6>
+          <IngredientForm
+            ingredientSubmitHandler={ingredientSubmitHandler}
+            handleIngredientChange={handleIngredientChange}
+            ingredient={ingredient}
+          />
+          <strong>Directions:</strong>
           <DirectionList directions={directions} />
-          <DirectionForm onDirectionSubmitted={directionSubmittedHandler} />
-          <input type="submit" value="Add Recipe" onClick={handleSubmit} />
+          <DirectionForm
+            directionSubmitHandler={directionSubmitHandler}
+            handleDirectionChange={handleDirectionChange}
+            direction={direction}
+          />
+          <input className="button" type="submit" value="Add Recipe" onClick={handleSubmit} />
         </form>
       </div>
-    </div>
+  </div>
   )
 }
 

@@ -19,7 +19,11 @@ const DirectionEditList = props => {
   return (
     <div>
       <ul>{directionList}</ul>
-      <DirectionForm onDirectionSubmitted={props.onDirectionSubmitted} />
+      <DirectionForm
+        directionSubmitHandler={props.directionSubmitHandler}
+        handleDirectionChange={props.handleDirectionChange}
+        direction={props.direction}
+      />
     </div>
   )
 }

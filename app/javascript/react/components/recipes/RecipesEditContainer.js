@@ -13,6 +13,12 @@ const RecipesEditContainer = props => {
   const [directions, setDirections] = useState([])
   const [errors, setErrors] = useState({})
   const [redirectNumber, setRedirectNumber] = useState(null)
+  const [ingredient, setIngredient] = useState({
+    name: "",
+  })
+  const [direction, setDirection] = useState({
+    step: "",
+  })
   let recipeId = props.match.params.id
 
   useEffect(() => {
@@ -42,16 +48,8 @@ const RecipesEditContainer = props => {
     })
   }
 
-  const ingredientSubmittedHandler = ingredient => {
-    setIngredients([...ingredients, ingredient])
-  }
-
   const handleDeleteIngredient = id => {
     setIngredients(ingredients.filter(ingredient => ingredient.id != id))
-  }
-
-  const directionSubmittedHandler = direction => {
-    setDirections([...directions, direction])
   }
 
   const handleDeleteDirection = id => {
@@ -68,6 +66,18 @@ const RecipesEditContainer = props => {
         submitErrors = {
           ...submitErrors,
           [field]: "can't be blank"
+        }
+      }
+      if(ingredients.length===0){
+        submitErrors = {
+          ...submitErrors,
+          ["ingredients"]: "Please enter"
+        }
+      }
+      if(directions.length===0){
+        submitErrors = {
+          ...submitErrors,
+          ["directions"]: "Please enter"
         }
       }
     })
@@ -92,30 +102,99 @@ const RecipesEditContainer = props => {
           "Content-Type": "application/json"
         }
       })
-    .then(response => {
-      if (response.ok) {
-        return response;
-      } else {
-        let errorMessage = `${response.status} (${response.statusText})`,
-         error = new Error(errorMessage);
-        throw(error);
-      }
-    })
-    .then(response => response.json())
-    .then(body => {
-      setRedirectNumber(body.recipe.id)
-    })
-    .catch(error => console.error(`Error in fetch: ${error.message}`));
+      .then(response => {
+        if (response.ok) {
+          return response;
+        } else {
+          let errorMessage = `${response.status} (${response.statusText})`,
+           error = new Error(errorMessage);
+          throw(error);
+        }
+      })
+      .then(response => response.json())
+      .then(body => {
+        setRedirectNumber(body.recipe.id)
+      })
+      .catch(error => console.error(`Error in fetch: ${error.message}`));
 
-    setRecipe({
-      name: ""
-    })
-    setErrors({})
+      setRecipe({
+        name: ""
+      })
+      setIngredients([])
+      setDirections([])
+      setErrors({})
     }
   }
 
   if (redirectNumber) {
     return <Redirect to={`/recipes/${redirectNumber}`} />
+  }
+
+  const handleIngredientChange = event => {
+    setIngredient({
+      ...ingredient,
+      [event.currentTarget.id]: event.currentTarget.value
+    })
+  }
+
+  const validIngredientSubmission = () => {
+    let submitErrors = {}
+    const requiredFields = ["name"]
+
+    requiredFields.forEach(field => {
+      if(ingredient[field].trim() === "") {
+        submitErrors = {
+          ...submitErrors,
+          [field]: "of ingredient can't be blank"
+        }
+      }
+    })
+  }
+
+  const ingredientSubmitHandler = event => {
+    event.preventDefault()
+    if (validIngredientSubmission()) {
+      setIngredients([...ingredients, ingredient])
+      setIngredient({
+        name: ""
+      })
+      setErrors({})
+    }
+  }
+
+  const handleDirectionChange = event => {
+    setDirection({
+      ...direction,
+      [event.currentTarget.id]: event.currentTarget.value
+    })
+  }
+
+  const validDirectionSubmission = () => {
+    let submitErrors = {}
+    const requiredFields = ["step"]
+
+    requiredFields.forEach(field => {
+      if(direction[field].trim() === "") {
+        submitErrors = {
+          ...submitErrors,
+          [field]: "can't be blank"
+        }
+      }
+    })
+
+    setErrors(submitErrors)
+    return _.isEmpty(submitErrors)
+  }
+
+  const directionSubmitHandler = event => {
+    event.preventDefault()
+    if (validDirectionSubmission()) {
+      setDirections([...directions, direction])
+      setDirection({
+        step: ""
+      })
+      setErrors({})
+    }
   }
 
   return(
@@ -137,14 +216,18 @@ const RecipesEditContainer = props => {
           <h6>Ingredients:</h6>
           <IngredientEditList
             ingredients={ingredients}
-            onIngredientSubmitted={ingredientSubmittedHandler}
+            ingredientSubmitHandler={ingredientSubmitHandler}
             handleDeleteIngredient={handleDeleteIngredient}
+            handleIngredientChange={handleIngredientChange}
+            ingredient={ingredient}
           />
           <h6>Directions:</h6>
           <DirectionEditList
             directions={directions}
-            onDirectionSubmitted={directionSubmittedHandler}
+            directionSubmitHandler={directionSubmitHandler}
             handleDeleteDirection={handleDeleteDirection}
+            handleDirectionChange={handleDirectionChange}
+            direction={direction}
           />
           <input type="submit" value="Edit Recipe" onClick={editRecipe}/>
         </form>

@@ -11,7 +11,7 @@ const ErrorList = props => {
 
       return (
         <li key={index}>
-          {_.startCase(field)} {props.errors[field]}
+           Please enter {_.startCase(field)}
         </li>
       )
     })

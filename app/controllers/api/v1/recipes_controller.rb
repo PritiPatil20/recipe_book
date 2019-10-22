@@ -35,7 +35,6 @@ class Api::V1::RecipesController < ApiController
   end
 
   def update
-    binding.pry
     recipe = Recipe.find(params[:id])
     Ingredient.where(recipe: recipe).delete_all
     Direction.where(recipe: recipe).delete_all

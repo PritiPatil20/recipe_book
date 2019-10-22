@@ -19,7 +19,11 @@ const IngredientEditList = props => {
   return (
     <div>
       <ul>{ingredientList}</ul>
-      <IngredientForm onIngredientSubmitted={props.onIngredientSubmitted} />
+      <IngredientForm
+        ingredientSubmitHandler={props.ingredientSubmitHandler}
+        handleIngredientChange={props.handleIngredientChange}
+        ingredient={props.ingredient}
+      />
     </div>
   )
 }
