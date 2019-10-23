@@ -1,10 +1,12 @@
 class Api::V1::RecipesController < ApiController
+  before_action :authorize_user, except: [:index, :show]
   def index
     render json: Recipe.all
   end
 
   def create
     recipe = Recipe.new(recipe_params)
+    recipe.user = current_user
     if recipe.save
       ingredientList = params.require(:ingredients).map{|ingredient|
         Ingredient.create(name: ingredient[:name], recipe: recipe)

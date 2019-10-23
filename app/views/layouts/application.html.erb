@@ -7,10 +7,13 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  
+
   <nav class="top-bar">
     <h1><a href="/">RecipeBook</a></h1>
-
+    <ul class="menu header-nav">
+      <li class="header-link"><%= link_to 'Add Recipe', recipes_new_path %></li>
+      <li class="header-link"><%= link_to 'Meal Planner', recipes_new_path %></li>
+    </ul>
     <section class="top-bar-section">
       <ul class="right">
         <%- if current_user -%>
@@ -32,14 +35,14 @@
   <%= yield %>
 
   <%= javascript_include_tag 'application' %>
-  
-  <%- if Rails.env.development? || Rails.env.test? -%> 
+
+  <%- if Rails.env.development? || Rails.env.test? -%>
     <%= javascript_tag do %>
       window.railsEnv = '<%= Rails.env %>'
     <%- end -%>
   <%- end -%>
   <%= javascript_pack_tag 'application' %>
-  
+
   <%= yield :extra_footer %>
 </body>
 </html>

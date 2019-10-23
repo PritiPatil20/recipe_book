@@ -3,6 +3,8 @@ class CreateRecipes < ActiveRecord::Migration[5.2]
     create_table :recipes do |t|
       t.string :name, null: false
 
+      t.belongs_to :user, null: false
+
       t.timestamps
     end
   end
