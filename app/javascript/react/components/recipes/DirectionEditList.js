@@ -2,7 +2,6 @@ import React from "react"
 import DirectionForm from "./DirectionForm"
 
 const DirectionEditList = props => {
-
   const handleDeleteDirection = (step) => {
     props.handleDeleteDirection(step)
   }

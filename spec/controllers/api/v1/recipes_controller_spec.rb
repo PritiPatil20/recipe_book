@@ -1,11 +1,19 @@
 require "rails_helper"
 
 RSpec.describe Api::V1::RecipesController, type: :controller do
+  let!(:user1) { User.create(
+    first_name: "Jay",
+    last_name: "Karasawa",
+    email: "john@gmail.com",
+    password: "john123"
+  ) }
   let!(:recipe1) { Recipe.create(
-    name: "Fried Rice"
+    name: "Fried Rice",
+    user: user1
   ) }
   let!(:recipe2) { Recipe.create(
-    name: "Fried chicken"
+    name: "Fried chicken",
+    user: user1
   ) }
   let!(:ingredient1) { Ingredient.create(
     name: "rice",
@@ -49,7 +57,6 @@ RSpec.describe Api::V1::RecipesController, type: :controller do
       expect(response.content_type).to eq("application/json")
       expect(returned_json.length).to eq 3
       expect(returned_json["recipe"]["name"]).to eq "Fried Rice"
-
     end
 
     it "should show ingredients for the selected recipe" do
@@ -71,6 +78,8 @@ RSpec.describe Api::V1::RecipesController, type: :controller do
 
   describe "POST#create" do
     it "creates a new recipe" do
+      user = FactoryBot.create(:user)
+      sign_in user
       post_json = {
         recipe: {
           name: "Onion Fritters"
@@ -99,6 +108,8 @@ RSpec.describe Api::V1::RecipesController, type: :controller do
     end
 
     it "returns the json of the newly posted recipe" do
+      user = FactoryBot.create(:user)
+      sign_in user
       post_json = {
         recipe: {
           name: "Onion Fritters"
@@ -138,6 +149,8 @@ RSpec.describe Api::V1::RecipesController, type: :controller do
 
   describe "PUT#update" do
     it "edit a recipe" do
+      user = FactoryBot.create(:user)
+      sign_in user
       post_json = {
         id: recipe1.id,
         recipe: {
@@ -167,6 +180,8 @@ RSpec.describe Api::V1::RecipesController, type: :controller do
     end
 
     it "returns the json of the updated ecipe" do
+      user = FactoryBot.create(:user)
+      sign_in user
       post_json = {
         id: recipe1.id,
         recipe: {

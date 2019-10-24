@@ -54,11 +54,13 @@ const RecipeShowContainer = props => {
         />
       </div>
       <div>
+        <strong>Ingredients</strong>
         <IngredientShowContainer
           ingredients={ingredients}
         />
       </div>
       <div>
+        <strong>Directions</strong>
         <DirectionShowContainer
           directions={directions}
         />

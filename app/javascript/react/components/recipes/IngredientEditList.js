@@ -2,7 +2,6 @@ import React from "react"
 import IngredientForm from "./IngredientForm"
 
 const IngredientEditList = props => {
-
   const handleDeleteIngredient = (name) => {
     props.handleDeleteIngredient(name)
   }
