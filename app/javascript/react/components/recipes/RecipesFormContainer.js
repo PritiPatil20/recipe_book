@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import IngredientList from "./IngredientList"
+import IngredientShowContainer from "./IngredientShowContainer"
 import IngredientForm from "./IngredientForm"
-import DirectionList from "./DirectionList"
+import DirectionShowContainer from "./DirectionShowContainer"
 import DirectionForm from "./DirectionForm"
 import _ from "lodash"
 import ErrorList from "../ErrorList"
@@ -188,14 +188,14 @@ const RecipesFormContainer = props => {
             />
           </label>
           <strong>Ingredients:</strong>
-          <IngredientList ingredients={ingredients} />
+          <IngredientShowContainer ingredients={ingredients} />
           <IngredientForm
             ingredientSubmitHandler={ingredientSubmitHandler}
             handleIngredientChange={handleIngredientChange}
             ingredient={ingredient}
           />
           <strong>Directions:</strong>
-          <DirectionList directions={directions} />
+          <DirectionShowContainer directions={directions} />
           <DirectionForm
             directionSubmitHandler={directionSubmitHandler}
             handleDirectionChange={handleDirectionChange}

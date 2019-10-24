@@ -9,7 +9,6 @@ const DirectionShowContainer = props => {
 
   return(
     <div>
-      <h6>Directions</h6>
       <ul>{directions}</ul>
     </div>
   )

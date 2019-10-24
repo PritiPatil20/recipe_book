@@ -149,9 +149,12 @@ const RecipesEditContainer = props => {
         }
       }
     })
+    setErrors(submitErrors)
+    return _.isEmpty(submitErrors)
   }
 
   const ingredientSubmitHandler = event => {
+    debugger
     event.preventDefault()
     if (validIngredientSubmission()) {
       setIngredients([...ingredients, ingredient])

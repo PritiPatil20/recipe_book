@@ -9,7 +9,6 @@ const IngredientShowContainer = props => {
 
   return(
     <div>
-      <h6>Ingredients</h6>
       <ul>{ingredients}</ul>
     </div>
   )
