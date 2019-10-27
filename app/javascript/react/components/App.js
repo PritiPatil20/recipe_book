@@ -4,6 +4,7 @@ import RecipesIndexContainer from "./recipes/RecipesIndexContainer"
 import RecipesFormContainer from "./recipes/RecipesFormContainer"
 import RecipeShowContainer from "./recipes/RecipeShowContainer"
 import RecipesEditContainer from "./recipes/RecipesEditContainer"
+import MealplansIndexContainer from "./mealplans/MealplansIndexContainer"
 
 export const App = (props) => {
   return (
@@ -14,6 +15,7 @@ export const App = (props) => {
         <Route exact path="/recipes/new" component={RecipesFormContainer} />
         <Route exact path="/recipes/:id" component={RecipeShowContainer} />
         <Route exact path="/recipes/:id/edit" component={RecipesEditContainer} />
+        <Route exact path="/mealplans" component={MealplansIndexContainer} />
       </Switch>
     </BrowserRouter>
   )
