@@ -3,7 +3,8 @@ class Recipe < ApplicationRecord
 
   has_many :ingredients
   has_many :directions
-  has_many :mealplans
+  has_many :mealrecipes
+  has_many :mealplans, through: :mealrecipes
 
   belongs_to :user
 end

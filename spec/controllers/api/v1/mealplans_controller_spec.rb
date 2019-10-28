@@ -13,8 +13,11 @@ RSpec.describe Api::V1::MealplansController, type: :controller do
   ) }
   let!(:mealplan1) { Mealplan.create(
     mealday: Time.now,
-    recipe: recipe1,
     user: user1
+  ) }
+  let!(:mealrecipe1) { Mealrecipe.create(
+    mealplan: mealplan1,
+    recipe: recipe1
   ) }
 
   describe "GET#index" do
@@ -34,7 +37,22 @@ RSpec.describe Api::V1::MealplansController, type: :controller do
       get :index
       returned_json = JSON.parse(response.body)
 
-      expect(returned_json["mealplans"][0]["recipe"]["name"]).to eq "Fried Rice"
+      expect(returned_json["mealplans"][0]["mealrecipes"][0]["recipe"]["name"]).to eq "Fried Rice"
+    end
+  end
+
+  describe "POST#create" do
+    it "creates a new mealplan" do
+      user = FactoryBot.create(:user)
+      sign_in user
+      post_json = {
+        mealday: Time.now,
+        recipes: [recipe1]
+      }
+      prev_count = Mealplan.count
+      post :create, params: post_json, as: :json
+
+      expect(Mealplan.count).to eq(prev_count + 1)
     end
   end
 end

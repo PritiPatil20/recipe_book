@@ -1,8 +1,7 @@
 class MealplanSerializer < ActiveModel::Serializer
-  attributes :id, :day, :recipe
+  attributes :id, :day
 
-  belongs_to :recipe
-
+  has_many :mealrecipes
   def day
     "#{object.mealday.strftime("%B %d, %Y")}"
   end

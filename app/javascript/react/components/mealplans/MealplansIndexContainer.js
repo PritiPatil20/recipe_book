@@ -30,7 +30,7 @@ const MealplansIndexContainer = props => {
         key={mealplan.id}
         id={mealplan.id}
         day={mealplan.day}
-        recipe={mealplan.recipe}
+        mealrecipes={mealplan.mealrecipes}
       />
     )
   })
