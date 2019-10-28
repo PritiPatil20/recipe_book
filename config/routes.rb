@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      post 'recipes/search', to: 'recipes#search'
       resources :recipes, only: [:index, :create, :show, :update, :destroy]
       resources :mealplans, only: [:index, :create]
     end

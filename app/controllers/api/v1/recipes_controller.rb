@@ -60,6 +60,11 @@ class Api::V1::RecipesController < ApiController
     end
   end
 
+  def search
+    recipes = Recipe.where("name ILIKE ?", "%#{params['search_string']}%")
+    render json: recipes
+  end
+
   private
 
   def recipe_params

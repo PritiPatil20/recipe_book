@@ -40,11 +40,11 @@ RSpec.describe Api::V1::RecipesController, type: :controller do
       expect(response.status).to eq 200
       expect(response.content_type).to eq("application/json")
 
-      expect(returned_json.length).to eq 2
+      expect(returned_json.length).to eq 1
 
-      expect(returned_json[0]["name"]).to eq "Fried Rice"
+      expect(returned_json["recipes"][0]["name"]).to eq "Fried Rice"
 
-      expect(returned_json[1]["name"]).to eq "Fried chicken"
+      expect(returned_json["recipes"][1]["name"]).to eq "Fried chicken"
     end
   end
 

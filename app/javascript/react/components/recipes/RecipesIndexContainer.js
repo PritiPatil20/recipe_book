@@ -3,6 +3,7 @@ import RecipeIndexTile from "./RecipeIndexTile"
 
 const RecipesIndexContainer = props => {
   const [recipes, setRecipes] = useState([])
+
   useEffect(() => {
     fetch("/api/v1/recipes.json")
     .then((response) => {
@@ -16,7 +17,8 @@ const RecipesIndexContainer = props => {
     })
     .then(response => response.json())
     .then(body => {
-      setRecipes(body)
+      debugger
+      setRecipes(body.recipes)
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`))
   }, [])
