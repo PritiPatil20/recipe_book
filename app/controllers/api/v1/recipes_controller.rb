@@ -33,6 +33,7 @@ class Api::V1::RecipesController < ApiController
       recipe: recipe,
       ingredients: recipe.ingredients,
       directions: recipe.directions,
+      current_user: current_user
     }
   end
 
