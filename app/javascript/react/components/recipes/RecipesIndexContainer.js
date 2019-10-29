@@ -17,7 +17,6 @@ const RecipesIndexContainer = props => {
     })
     .then(response => response.json())
     .then(body => {
-      debugger
       setRecipes(body.recipes)
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`))

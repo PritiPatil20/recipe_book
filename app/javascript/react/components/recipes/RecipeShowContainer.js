@@ -11,6 +11,7 @@ const RecipeShowContainer = props => {
   const [ingredients,setIngredients] = useState([])
   const [directions,setDirections] = useState([])
   const [redirectNumber, setRedirectNumber] = useState(null)
+  const [currentUser, setCurrentUser] = useState({})
   let recipeId = props.match.params.id
 
   useEffect(() => {
@@ -29,6 +30,7 @@ const RecipeShowContainer = props => {
       setRecipe(body.recipe)
       setIngredients(body.ingredients)
       setDirections(body.directions)
+      setCurrentUser(body.current_user)
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`))
   }, [])
@@ -41,8 +43,11 @@ const RecipeShowContainer = props => {
     return <Redirect to={`/recipes/${redirectNumber}/edit`} />
   }
 
-  const deleteRecipe = event => {
-
+  let showButton = "hideEditButton"
+  if (currentUser) {
+    if(currentUser.id === recipe.user_id){
+      showButton = "showEditButton"
+    }
   }
 
   return (
@@ -65,8 +70,7 @@ const RecipeShowContainer = props => {
           directions={directions}
         />
       </div>
-      <button className="button" onClick={updateRecipe}>Edit</button>&nbsp;
-      <button className="button" onClick={deleteRecipe}>Delete</button><br/>
+      <button className={`button ${showButton}`} onClick={updateRecipe}>Edit</button>&nbsp;
       <Link to="/">Home</Link>
     </div>
   )
