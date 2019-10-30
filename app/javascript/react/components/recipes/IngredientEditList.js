@@ -10,7 +10,7 @@ const IngredientEditList = props => {
     return (
       <li key={ingredient.id}>
         <strong>{ingredient.name}</strong>&nbsp;&nbsp;
-        <button className="button" onClick={handleDeleteIngredient.bind(this,ingredient.id)}>Delete</button>
+        <button className="fas fa-times deleteButton" onClick={handleDeleteIngredient.bind(this,ingredient.id)}></button>
       </li>
     )
   })

@@ -10,10 +10,10 @@ const SearchResult = props => {
   return(
     <div>
       <li key={props.recipe.id}>
-        <Link to={`/recipes/${props.recipe.id}`}>
+        <Link to={`/recipes/${props.recipe.id}`} className="searchResult">
           <h6>{props.recipe.name}</h6>
         </Link>
-        <button className="button" onClick={selectRecipe.bind(this,props.recipe)}>Select</button>
+        <button className="form-button" onClick={selectRecipe.bind(this,props.recipe)}>Select</button>
       </li>
     </div>
   )

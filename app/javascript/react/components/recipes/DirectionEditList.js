@@ -10,7 +10,7 @@ const DirectionEditList = props => {
     return (
       <li key={direction.id}>
         <strong>{direction.step}</strong>&nbsp;&nbsp;
-        <button className="button" onClick={handleDeleteDirection.bind(this,direction.id)}>Delete</button>
+        <button className="form-button" onClick={handleDeleteDirection.bind(this,direction.id)}>Delete</button>
       </li>
     )
   })

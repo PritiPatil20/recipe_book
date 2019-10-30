@@ -13,7 +13,7 @@ const IngredientForm = props => {
           value={props.ingredient.name}
         />
       </label>
-      <button className="button" onClick={props.ingredientSubmitHandler}>Add Ingredients</button>
+      <button className="form-button" onClick={props.ingredientSubmitHandler}>Add</button>
     </div>
   )
 }

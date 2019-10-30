@@ -201,7 +201,7 @@ const RecipesFormContainer = props => {
             handleDirectionChange={handleDirectionChange}
             direction={direction}
           />
-          <input className="button" type="submit" value="Add Recipe" onClick={handleSubmit} />
+          <input className="form-button" type="submit" value="Add Recipe" onClick={handleSubmit} />
         </form>
       </div>
   </div>

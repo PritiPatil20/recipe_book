@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 const MealplanIndexTile = props => {
   const recipeTiles = props.mealrecipes.map(mealrecipe => {
     return(
-      <li key={mealrecipe.recipe.id}>
+      <li class="no-bullets" key={mealrecipe.recipe.id}>
         <Link to={`/recipes/${mealrecipe.recipe.id}`}>
           {mealrecipe.recipe.name}
         </Link>
@@ -13,8 +13,8 @@ const MealplanIndexTile = props => {
   })
 
   return(
-    <div>
-        <h5>{props.day}</h5>
+    <div class="text-center">
+        <h5>Mealplan for {props.day}</h5>
         <ul>{recipeTiles}</ul>
     </div>
   )
