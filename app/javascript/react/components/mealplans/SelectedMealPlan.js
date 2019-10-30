@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const SelectedMealPlan = props => {
   const recipeTiles = props.selectedRecipes.map(recipe =>
-    <li key={recipe.id}>{recipe.name}</li>
+    <li className="no-bullets text-center"key={recipe.id}>{recipe.name}</li>
   )
 
   return(

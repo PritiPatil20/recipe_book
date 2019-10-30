@@ -13,7 +13,7 @@ const DirectionForm = props => {
           value={props.direction.step}
         />
       </label>
-      <button className="button" onClick={props.directionSubmitHandler}>Add Steps</button>
+      <button className="form-button" onClick={props.directionSubmitHandler}>Add</button>
     </div>
   )
 }

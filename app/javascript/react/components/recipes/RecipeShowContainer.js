@@ -70,7 +70,7 @@ const RecipeShowContainer = props => {
           directions={directions}
         />
       </div>
-      <button className={`button ${showButton}`} onClick={updateRecipe}>Edit</button>&nbsp;
+      <button className={`form-button ${showButton}`} onClick={updateRecipe}>Edit</button>&nbsp;
       <Link to="/">Home</Link>
     </div>
   )

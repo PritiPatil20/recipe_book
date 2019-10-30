@@ -4,6 +4,7 @@ import SearchResult from "./SearchResult"
 import SelectedMealPlan from "./SelectedMealPlan"
 import _ from "lodash"
 import ErrorList from "../ErrorList"
+import { Redirect } from "react-router-dom"
 
 const MealplanFormContainer = props => {
   const [mealday, setMealday] = useState(null)
@@ -11,6 +12,7 @@ const MealplanFormContainer = props => {
   const [recipes, setRecipes] = useState([])
   const [selectedRecipes, setSelectedRecipes] = useState([])
   const [errors, setErrors] = useState({})
+  const [redirectNumber, setRedirectNumber] = useState(null)
 
   const handleChangeDate = date => {
     setMealday(date)
@@ -110,13 +112,17 @@ const MealplanFormContainer = props => {
       })
       .then(response => response.json())
       .then(body => {
-  
+        setRedirectNumber(body.mealplan.id)
       })
       .catch(error => console.error(`Error in fetch: ${error.message}`));
       setRecipeSearch()
       setRecipes([])
       setErrors({})
     }
+  }
+
+  if (redirectNumber) {
+    return <Redirect to={`/mealplans`} />
   }
 
   return(
@@ -138,7 +144,7 @@ const MealplanFormContainer = props => {
               onChange={handleSearchChange}
             />
           </label>
-          <button className="button" onClick={searchRecipe}>Search</button>
+          <button className="form-button" onClick={searchRecipe}>Search</button>
         </form>
         <div>
           {recipeTiles}
@@ -155,7 +161,9 @@ const MealplanFormContainer = props => {
             selectedRecipes={selectedRecipes}
           />)
         }
-        <button className="button" onClick={addMealPlan}>Add Mealplan</button>
+        <div className="text-center">
+          <button className="form-button" onClick={addMealPlan}>Add Mealplan</button>
+        </div>
       </div>
   </div>
   )
