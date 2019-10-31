@@ -26,6 +26,7 @@ RSpec.describe Api::V1::MealplansController, type: :controller do
 
   describe "GET#index" do
     it "should return a list of all the mealplans" do
+      user1.confirm
       sign_in user1
       get :index
       returned_json = JSON.parse(response.body)
@@ -37,6 +38,7 @@ RSpec.describe Api::V1::MealplansController, type: :controller do
     end
 
     it "should show recipe for the mealplan" do
+      user1.confirm
       sign_in user1
       get :index
       returned_json = JSON.parse(response.body)
@@ -48,6 +50,7 @@ RSpec.describe Api::V1::MealplansController, type: :controller do
   describe "POST#create" do
     it "creates a new mealplan" do
       user = FactoryBot.create(:user)
+      user.confirm
       sign_in user
       post_json = {
         mealday: Time.now,
@@ -63,6 +66,7 @@ RSpec.describe Api::V1::MealplansController, type: :controller do
   describe "PUT#update" do
     it "edit a mealplan" do
       user = FactoryBot.create(:user)
+      user.confirm
       sign_in user
       post_json = {
         id: mealplan1.id,
