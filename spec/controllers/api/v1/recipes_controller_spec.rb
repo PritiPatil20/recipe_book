@@ -79,6 +79,7 @@ RSpec.describe Api::V1::RecipesController, type: :controller do
   describe "POST#create" do
     it "creates a new recipe" do
       user = FactoryBot.create(:user)
+      user.confirm
       sign_in user
       post_json = {
         recipe: {
@@ -109,6 +110,7 @@ RSpec.describe Api::V1::RecipesController, type: :controller do
 
     it "returns the json of the newly posted recipe" do
       user = FactoryBot.create(:user)
+      user.confirm
       sign_in user
       post_json = {
         recipe: {
@@ -150,6 +152,7 @@ RSpec.describe Api::V1::RecipesController, type: :controller do
   describe "PUT#update" do
     it "edit a recipe" do
       user = FactoryBot.create(:user)
+      user.confirm
       sign_in user
       post_json = {
         id: recipe1.id,
@@ -181,6 +184,7 @@ RSpec.describe Api::V1::RecipesController, type: :controller do
 
     it "returns the json of the updated recipe" do
       user = FactoryBot.create(:user)
+      user.confirm
       sign_in user
       post_json = {
         id: recipe1.id,
