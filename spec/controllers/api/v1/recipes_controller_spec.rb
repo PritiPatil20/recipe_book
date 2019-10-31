@@ -179,7 +179,7 @@ RSpec.describe Api::V1::RecipesController, type: :controller do
       expect(Recipe.count).to eq(prev_count)
     end
 
-    it "returns the json of the updated ecipe" do
+    it "returns the json of the updated recipe" do
       user = FactoryBot.create(:user)
       sign_in user
       post_json = {

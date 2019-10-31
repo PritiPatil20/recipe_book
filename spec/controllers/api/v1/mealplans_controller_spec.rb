@@ -11,6 +11,10 @@ RSpec.describe Api::V1::MealplansController, type: :controller do
     name: "Fried Rice",
     user: user1
   ) }
+  let!(:recipe2) { Recipe.create(
+    name: "Pizza",
+    user: user1
+  ) }
   let!(:mealplan1) { Mealplan.create(
     mealday: Time.now,
     user: user1
@@ -53,6 +57,22 @@ RSpec.describe Api::V1::MealplansController, type: :controller do
       post :create, params: post_json, as: :json
 
       expect(Mealplan.count).to eq(prev_count + 1)
+    end
+  end
+
+  describe "PUT#update" do
+    it "edit a mealplan" do
+      user = FactoryBot.create(:user)
+      sign_in user
+      post_json = {
+        id: mealplan1.id,
+        mealday: Time.now,
+        recipes: [recipe2]
+      }
+
+      prev_count = Mealplan.count
+      put :update, params: post_json, as: :json
+      expect(Mealplan.count).to eq(prev_count)
     end
   end
 end

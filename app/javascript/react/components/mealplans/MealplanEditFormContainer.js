@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import DatePicker from 'react-datepicker'
 import SearchResult from "./SearchResult"
 import SelectedMealPlan from "./SelectedMealPlan"
@@ -6,13 +6,34 @@ import _ from "lodash"
 import ErrorList from "../ErrorList"
 import { Redirect } from "react-router-dom"
 
-const MealplanFormContainer = props => {
+const MealplanEditFormContainer = props => {
   const [mealday, setMealday] = useState(null)
   const [recipeSearch, setRecipeSearch] = useState("")
   const [recipes, setRecipes] = useState([])
   const [selectedRecipes, setSelectedRecipes] = useState([])
   const [errors, setErrors] = useState({})
   const [redirectNumber, setRedirectNumber] = useState(null)
+
+  let mealplanId = props.match.params.id
+
+  useEffect(() => {
+    fetch(`/api/v1/mealplans/${mealplanId}`)
+    .then(response => {
+      if (response.ok) {
+        return response;
+      } else {
+        let errorMessage = `${response.status} (${response.statusText})`,
+        error = new Error(errorMessage);
+        throw(error);
+      }
+    })
+    .then(response => response.json())
+    .then(body => {
+      setSelectedRecipes(body.recipes)
+      setMealday(new Date(`${body.mealday} `))
+    })
+    .catch(error => console.error(`Error in fetch: ${error.message}`))
+  }, [])
 
   const handleChangeDate = date => {
     setMealday(date)
@@ -86,12 +107,12 @@ const MealplanFormContainer = props => {
     return _.isEmpty(submitErrors)
   }
 
-  const addMealPlan = event => {
+  const editMealPlan = event => {
     event.preventDefault()
     if (validForSubmission()) {
-      fetch('/api/v1/mealplans.json', {
+      fetch(`/api/v1/mealplans/${mealplanId}`, {
         credentials: "same-origin",
-        method: 'POST',
+        method: 'PUT',
         body: JSON.stringify({
           mealday: mealday,
           recipes: selectedRecipes
@@ -139,8 +160,8 @@ const MealplanFormContainer = props => {
           />
           <label htmlFor="mealday"><strong>Date:</strong>
             <DatePicker
-              selected={mealday}
               onChange={handleChangeDate}
+              selected={mealday}
               minDate={new Date()}
             />
           </label>
@@ -172,12 +193,11 @@ const MealplanFormContainer = props => {
           />)
         }
         <div className="text-center">
-          <button className="form-button" onClick={addMealPlan}>Add Mealplan</button>
+          <button className="form-button" onClick={editMealPlan}>Edit Mealplan</button>
         </div>
       </div>
   </div>
   )
-
 }
 
-export default MealplanFormContainer
+export default MealplanEditFormContainer

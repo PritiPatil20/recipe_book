@@ -8,26 +8,31 @@ import MealplanIndexTile from "./mealplans/MealplanIndexTile"
 
 describe("MealplanIndexTile", () => {
   let wrapper
-  let recipe = {
-    name: "icecream"
-  }
+  let recipe1 = { id: 1, recipe: "recipe1"}
+  let recipe2 = { id: 2, name: "Pasta"}
+  let data = [
+    { recipe: recipe1},
+    { recipe: recipe2}
+  ]
 
   beforeEach(() => {
     wrapper = mount(
       <BrowserRouter>
         <MealplanIndexTile
+          key="1"
+          id="1"
           day="October 24, 2019"
-          recipe=recipe
+          mealrecipes={data}
         />
       </BrowserRouter>
     )
   })
 
   it("renders an h5 tag with the mealplan day", () => {
-    expect(wrapper.find("h5").text()).toBe("October 24, 2019")
+    expect(wrapper.find("h5").text()).toBe("Mealplan for October 24, 2019")
   })
 
-  it("renders a link that will lead to an recipe show page", () => {
-    expect(wrapper.find("Link").text()).toBe("icecream")
+  it("should render 1 li tags", () => {
+    expect(wrapper.find("li").length).toEqual(2)
   })
 })
