@@ -50,6 +50,11 @@ const RecipeShowContainer = props => {
     }
   }
 
+  const handleBackButton = event => {
+    event.preventDefault()
+    history.back()
+  }
+
   return (
     <div>
       <div>
@@ -71,7 +76,7 @@ const RecipeShowContainer = props => {
         />
       </div>
       <button className={`form-button ${showButton}`} onClick={updateRecipe}>Edit</button>&nbsp;
-      <Link to="/">Home</Link>
+      <button className="form-button" onClick={handleBackButton}>Back</button>
     </div>
   )
 }

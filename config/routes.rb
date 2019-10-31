@@ -8,12 +8,14 @@ Rails.application.routes.draw do
   get '/recipes/:id/edit', to: "static_pages#index"
   get '/mealplans', to: "static_pages#new"
   get '/mealplans/new', to: "static_pages#new"
+  get '/mealplans/:id', to: "static_pages#new"
+  get '/mealplans/:id/edit', to: "static_pages#new"
 
   namespace :api do
     namespace :v1 do
       post 'recipes/search', to: 'recipes#search'
       resources :recipes, only: [:index, :create, :show, :update, :destroy]
-      resources :mealplans, only: [:index, :create]
+      resources :mealplans, only: [:index, :create, :show, :update]
     end
   end
 end
