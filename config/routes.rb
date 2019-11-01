@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get '/mealplans/new', to: "static_pages#new"
   get '/mealplans/:id', to: "static_pages#new"
   get '/mealplans/:id/edit', to: "static_pages#new"
+  get '/stores', to: "stores#index"
 
   namespace :api do
     namespace :v1 do
