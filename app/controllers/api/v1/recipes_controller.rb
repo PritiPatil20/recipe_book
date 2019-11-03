@@ -63,6 +63,9 @@ class Api::V1::RecipesController < ApiController
 
   def search
     recipes = Recipe.where("name ILIKE ?", "%#{params['search_string']}%")
+    if recipes.length==0
+      recipes = Recipe.where(id:[Ingredient.select(:recipe_id).where("name ILIKE ?", "%#{params['search_string']}%")])
+    end
     render json: recipes
   end
 
