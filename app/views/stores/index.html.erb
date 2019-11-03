@@ -1,6 +1,11 @@
-<p>
-Store page
-ip address =<%= @ip_address %><br/>
-location = <%= @location %><br/>
-search = <%= @search %>
-</p>
+<div class="text-center">
+  <% if @stores.length>0 %>
+    <% @stores.each do |store| %>
+      <h3><%= store["name"] %></h3>
+      <h5><%= store["vicinity"] %></h5>
+      <br/>
+    <% end %>
+  <% else %>
+    <h3> No stores in 3 miles radius </h3>
+  <% end %>
+</div>
