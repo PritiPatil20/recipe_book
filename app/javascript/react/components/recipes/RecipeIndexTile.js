@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom'
 
 const RecipeIndexTile = props => {
   return(
-    <div>
+    <div className="text-center">
+      <br/>
       <Link to={`/recipes/${props.id}`}>
-        <h6>{props.name}</h6>
+        <h4 className="recipe-name-index">{props.name}</h4>
       </Link>
     </div>
   )

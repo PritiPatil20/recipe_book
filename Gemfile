@@ -56,3 +56,4 @@ gem 'webpacker', '~> 3.3'
 gem "active_model_serializers"
 gem "geocoder"
 gem 'sendgrid-ruby'
+gem 'google_places'

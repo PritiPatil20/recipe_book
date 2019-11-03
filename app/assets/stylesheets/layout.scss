@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Fugaz+One&display=swap');
+
 .background-main{
   background: image-url("background-main.jpg");
   min-width: 100%;
@@ -15,4 +17,12 @@
   background-size: cover;
   background-attachment: fixed;
   background-position: top;
+}
+.header {
+  background-color: #C6003B;
+}
+
+.site-title a{
+  color: #FFFFFF;
+  font-family: 'Fugaz One', cursive;
 }
