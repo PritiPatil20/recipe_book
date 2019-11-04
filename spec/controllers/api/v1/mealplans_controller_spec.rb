@@ -79,4 +79,19 @@ RSpec.describe Api::V1::MealplansController, type: :controller do
       expect(Mealplan.count).to eq(prev_count)
     end
   end
+
+  describe "DELETE#update" do
+    it "delete a mealplan" do
+      user = FactoryBot.create(:user)
+      user.confirm
+      sign_in user
+      post_json = {
+        id: mealplan1.id,
+      }
+
+      prev_count = Mealplan.count
+      delete :destroy, params: post_json, as: :json
+      expect(Mealplan.count).to eq(prev_count-1)
+    end
+  end
 end
