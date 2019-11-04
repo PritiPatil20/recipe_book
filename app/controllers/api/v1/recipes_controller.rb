@@ -83,6 +83,14 @@ class Api::V1::RecipesController < ApiController
     render json: recipes
   end
 
+  def destroy
+    recipe = Recipe.find(params[:id])
+    recipe.destroy
+    recipes = Recipe.all
+
+    render json: recipes
+  end
+
   private
 
   def recipe_params
