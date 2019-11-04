@@ -11,6 +11,7 @@ const RecipeShowContainer = props => {
   const [ingredients,setIngredients] = useState([])
   const [directions,setDirections] = useState([])
   const [redirectNumber, setRedirectNumber] = useState(null)
+  const [redirectDelete, setRedirectDelete] = useState(null)
   const [currentUser, setCurrentUser] = useState({})
   let recipeId = props.match.params.id
 
@@ -50,9 +51,46 @@ const RecipeShowContainer = props => {
     }
   }
 
+  let showDelete = "hideDeleteButton"
+  if (currentUser) {
+    if(currentUser.role === "admin"){
+      showDelete = "showDeleteButton"
+    }
+  }
+
   const handleBackButton = event => {
     event.preventDefault()
     history.back()
+  }
+
+  const handleDelete = event => {
+    let id = recipe.id
+    fetch(`/api/v1/recipes/${id}`, {
+      credentials: "same-origin",
+      method: 'DELETE',
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      }
+    })
+    .then(response => {
+      if (response.ok) {
+        return response;
+      } else {
+        let errorMessage = `${response.status} (${response.statusText})`,
+         error = new Error(errorMessage);
+        throw(error);
+      }
+    })
+    .then(response => response.json())
+    .then(body => {
+      setRedirectDelete(true)
+    })
+    .catch(error => console.error(`Error in fetch: ${error.message}`));
+  }
+
+  if (redirectDelete) {
+    return <Redirect to={`/`} />
   }
 
   return (
@@ -76,6 +114,7 @@ const RecipeShowContainer = props => {
         />
       </div>
       <button className={`form-button ${showButton}`} onClick={updateRecipe}>Edit</button>&nbsp;
+      <button className={`form-button ${showDelete}`} onClick={handleDelete}>Delete</button>&nbsp;
       <button className="form-button" onClick={handleBackButton}>Back</button>
     </div>
   )

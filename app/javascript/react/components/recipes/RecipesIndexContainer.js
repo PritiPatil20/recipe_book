@@ -3,7 +3,7 @@ import RecipeIndexTile from "./RecipeIndexTile"
 
 const RecipesIndexContainer = props => {
   const [recipes, setRecipes] = useState([])
-  
+
   useEffect(() => {
     let search = ""
     if (props.location.search) {

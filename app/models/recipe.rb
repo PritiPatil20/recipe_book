@@ -1,8 +1,8 @@
 class Recipe < ApplicationRecord
   validates :name, presence: true
 
-  has_many :ingredients
-  has_many :directions
+  has_many :ingredients, dependent: :destroy
+  has_many :directions, dependent: :destroy
   has_many :mealrecipes
   has_many :mealplans, through: :mealrecipes
 
