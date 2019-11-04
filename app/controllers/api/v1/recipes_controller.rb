@@ -1,7 +1,20 @@
 class Api::V1::RecipesController < ApiController
   before_action :authenticate_user!, except: [:index, :show]
+
   def index
-    render json: Recipe.all
+    if params["/recipes"]
+      if params["/recipes"][:name] == ""
+        recipes = Recipe.all
+      else
+        recipes = Recipe.where("name ILIKE ?", "%#{params["/recipes"][:name]}%")
+        if recipes.length==0
+          recipes = Recipe.where(id:[Ingredient.select(:recipe_id).where("name ILIKE ?", "%#{params["/recipes"][:name]}%")])
+        end
+      end
+    else
+      recipes = Recipe.all
+    end
+    render json: recipes
   end
 
   def create
@@ -62,6 +75,7 @@ class Api::V1::RecipesController < ApiController
   end
 
   def search
+    recipes = []
     recipes = Recipe.where("name ILIKE ?", "%#{params['search_string']}%")
     if recipes.length==0
       recipes = Recipe.where(id:[Ingredient.select(:recipe_id).where("name ILIKE ?", "%#{params['search_string']}%")])

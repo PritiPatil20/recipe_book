@@ -26,6 +26,16 @@
       </li>
       <li class="header-link header site-title"><%= link_to 'Store', stores_path %></li>
     </ul>
+    <%= form_for "/recipes", method: "GET" do |f| %>
+      <div class="row">
+        <div class="columns large-6 medium-12 small-12">
+          <%= f.text_field :name %>
+        </div>
+        <div class="columns large-6 medium-12 small-12">
+          <%= f.submit "Search", :class => 'search-button' %>
+        </div>
+      </div>
+    <% end %>
     <section class="top-bar-section">
       <ul class="right">
         <%- if current_user -%>
