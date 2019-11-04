@@ -20,6 +20,7 @@ export const App = (props) => {
         <Route exact path="/mealplans" component={MealplansIndexContainer} />
         <Route exact path="/mealplans/new" component={MealplanFormContainer} />
         <Route exact path="/mealplans/:id/edit" component={MealplanEditFormContainer} />
+
       </Switch>
     </BrowserRouter>
   )

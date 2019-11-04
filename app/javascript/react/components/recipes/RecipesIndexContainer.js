@@ -3,9 +3,13 @@ import RecipeIndexTile from "./RecipeIndexTile"
 
 const RecipesIndexContainer = props => {
   const [recipes, setRecipes] = useState([])
-
+  
   useEffect(() => {
-    fetch("/api/v1/recipes.json")
+    let search = ""
+    if (props.location.search) {
+      search = props.location.search
+    }
+    fetch(`/api/v1/recipes${search}.json`)
     .then((response) => {
       if (response.ok) {
         return response
