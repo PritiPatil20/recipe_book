@@ -12,11 +12,16 @@ const MealplanIndexTile = props => {
     )
   })
 
+  const handleDelete = event => {
+    event.preventDefault()
+    props.handleDelete(props.id)
+  }
+
   return(
     <div className="text-center">
         <h5 className="searchResult">Mealplan for {props.day}</h5>&nbsp;&nbsp;
         <Link className="fas fa-edit" to={`/mealplans/${props.id}/edit`}></Link>&nbsp;&nbsp;
-        <Link className="fas fa-trash-alt" to={`/mealplans/${props.id}`}></Link>&nbsp;&nbsp;
+        <Link className="fas fa-trash-alt" onClick={handleDelete}></Link>&nbsp;&nbsp;
         <Link className="fas fa-clipboard-list" to={`/mealplans/${props.id}`}></Link>
         <ul>{recipeTiles}</ul>
     </div>

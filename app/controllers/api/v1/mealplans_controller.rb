@@ -1,6 +1,7 @@
 class Api::V1::MealplansController < ApiController
   def index
     mealplans = Mealplan.where(user: current_user).order(:mealday)
+
     render json: mealplans
   end
 
@@ -24,6 +25,7 @@ class Api::V1::MealplansController < ApiController
 
   def show
     mealplan = Mealplan.find(params[:id])
+
     render json: {
       mealday: mealplan.mealday,
       recipes: mealplan.recipes
@@ -46,5 +48,13 @@ class Api::V1::MealplansController < ApiController
         errors: mealplan.errors.messages
       }
     end
+  end
+
+  def destroy
+    mealplan = Mealplan.find(params[:id])
+    mealplan.destroy
+    mealplans = Mealplan.where(user: current_user).order(:mealday)
+
+    render json: mealplans
   end
 end
