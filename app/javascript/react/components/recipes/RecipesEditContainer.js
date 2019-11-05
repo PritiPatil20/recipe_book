@@ -4,6 +4,7 @@ import DirectionEditList from "./DirectionEditList"
 import _ from "lodash"
 import ErrorList from "../ErrorList"
 import { Redirect } from "react-router-dom"
+import Dropzone from 'react-dropzone'
 
 const RecipesEditContainer = props => {
   const [recipe, setRecipe] = useState({
@@ -19,6 +20,17 @@ const RecipesEditContainer = props => {
   const [direction, setDirection] = useState({
     step: "",
   })
+  const [photoUpload, setPhotoUpload] = useState([])
+  const [message, setMessage] = useState("")
+
+  const onDrop = (file) => {
+    if(file.length == 1) {
+      setPhotoUpload(file)
+    } else {
+      setMessage("You can only upload 1 photo")
+    }
+  }
+
   let recipeId = props.match.params.id
 
   useEffect(() => {
@@ -89,18 +101,16 @@ const RecipesEditContainer = props => {
   const editRecipe = event => {
     event.preventDefault()
     if (validForSubmission()) {
-      fetch(`/api/v1/recipes/${recipeId}`, {
+      let submittedFields = new FormData()
+      submittedFields.append("name", recipe.name)
+      submittedFields.append("recipe_photo", photoUpload[0])
+      submittedFields.append("ingredients", JSON.stringify(ingredients))
+      submittedFields.append("directions", JSON.stringify(directions))
+
+      fetch(`/api/v1/recipes/${recipeId}.json`, {
         credentials: "same-origin",
         method: 'PUT',
-        body: JSON.stringify({
-          recipe: recipe,
-          ingredients: ingredients,
-          directions: directions
-        }),
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        }
+        body: submittedFields
       })
       .then(response => {
         if (response.ok) {
@@ -231,6 +241,29 @@ const RecipesEditContainer = props => {
             handleDirectionChange={handleDirectionChange}
             direction={direction}
           />
+          <section>
+            <div className="dropzone">
+              <Dropzone
+                className=""
+                multiple={false}
+                onDrop={file => onDrop(file)}
+              >
+                {({getRootProps, getInputProps}) => (
+                    <div {...getRootProps()}>
+                      <input {...getInputProps()} />
+                      <p>Click to upload photo / Drop your photo here</p>
+                    </div>
+                )}
+              </Dropzone>
+            </div>
+            <aside>
+              <ul>
+                {
+                  photoUpload.map(file => <li key={file.name}>{file.name} - {file.size} bytes</li>)
+                }
+              </ul>
+            </aside>
+          </section>
           <input className="form-button" type="submit" value="Edit Recipe" onClick={editRecipe}/>
         </form>
       </div>

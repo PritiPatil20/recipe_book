@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get '/recipes', to: "static_pages#index"
   get '/recipes/new', to: "static_pages#new"
   get '/recipes/:id', to: "static_pages#index"
-  get '/recipes/:id/edit', to: "static_pages#index"
+  get '/recipes/:id/edit', to: "static_pages#new"
   get '/mealplans', to: "static_pages#new"
   get '/mealplans/new', to: "static_pages#new"
   get '/mealplans/:id', to: "static_pages#new"

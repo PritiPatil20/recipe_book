@@ -57,3 +57,5 @@ gem "active_model_serializers"
 gem "geocoder"
 gem 'sendgrid-ruby'
 gem 'google_places'
+gem 'fog-aws'
+gem 'carrierwave'
