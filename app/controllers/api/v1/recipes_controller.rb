@@ -18,14 +18,17 @@ class Api::V1::RecipesController < ApiController
   end
 
   def create
-    recipe = Recipe.new(recipe_params)
-    recipe.user = current_user
+    recipe = Recipe.new(
+      name: params["name"],
+      recipe_photo: params["recipe_photo"],
+      user: current_user
+    )
     if recipe.save
-      ingredientList = params.require(:ingredients).map{|ingredient|
-        Ingredient.create(name: ingredient[:name], recipe: recipe)
+      ingredientList = JSON.parse(params["ingredients"]).map{|ingredient|
+        Ingredient.create!(name: ingredient["name"], recipe: recipe)
       }
-      directionList = params.require(:directions).map{|direction|
-        Direction.create(step: direction[:step], recipe: recipe)
+      directionList = JSON.parse(params["directions"]).map{|direction|
+        Direction.create(step: direction["step"], recipe: recipe)
       }
       render json: {
         recipe: recipe,
@@ -54,18 +57,18 @@ class Api::V1::RecipesController < ApiController
     recipe = Recipe.find(params[:id])
     Ingredient.where(recipe: recipe).delete_all
     Direction.where(recipe: recipe).delete_all
-    if recipe.update(recipe_params)
-      ingredientList = params.require(:ingredients).map{|ingredient|
-      Ingredient.create(name: ingredient[:name], recipe: recipe)
-    }
-    directionList = params.require(:directions).map{|direction|
-      Direction.create(step: direction[:step], recipe: recipe)
-    }
-    render json: {
-      recipe: recipe,
-      ingredientList: ingredientList,
-      directionList: directionList
-    }
+    if(recipe.update(name: params["name"], recipe_photo: params["recipe_photo"], user: current_user))
+      ingredientList = JSON.parse(params["ingredients"]).map{|ingredient|
+        Ingredient.create(name: ingredient["name"], recipe: recipe)
+      }
+      directionList = JSON.parse(params["directions"]).map{|direction|
+        Direction.create(step: direction["step"], recipe: recipe)
+      }
+      render json: {
+        recipe: recipe,
+        ingredientList: ingredientList,
+        directionList: directionList
+      }
     else
       render json: {
         errors: recipe.errors.messages,

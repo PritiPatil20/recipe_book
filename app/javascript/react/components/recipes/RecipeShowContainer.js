@@ -93,29 +93,41 @@ const RecipeShowContainer = props => {
     return <Redirect to={`/`} />
   }
 
+  let photo_url = ""
+  if(recipe.recipe_photo){
+    photo_url=recipe.recipe_photo.url
+  }
+
   return (
-    <div>
-      <div>
-        <RecipeShowPage
-          id={recipe.id}
-          name={recipe.name}
-        />
+    <div className="row">
+      <div className="small-6 small-centered columns">
+        <br/><br/>
+        <img src={photo_url} />
       </div>
-      <div>
-        <strong>Ingredients</strong>
-        <IngredientShowContainer
-          ingredients={ingredients}
-        />
+      <div className="small-6 small-centered columns">
+        <div>
+          <br/><br/>
+          <RecipeShowPage
+            id={recipe.id}
+            name={recipe.name}
+          />
+        </div>
+        <div>
+          <strong>Ingredients</strong>
+          <IngredientShowContainer
+            ingredients={ingredients}
+          />
+        </div>
+        <div>
+          <strong>Directions</strong>
+          <DirectionShowContainer
+            directions={directions}
+          />
+        </div>
+        <button className={`form-button ${showButton}`} onClick={updateRecipe}>Edit</button>&nbsp;
+        <button className={`form-button ${showDelete}`} onClick={handleDelete}>Delete</button>&nbsp;
+        <button className="form-button" onClick={handleBackButton}>Back</button>
       </div>
-      <div>
-        <strong>Directions</strong>
-        <DirectionShowContainer
-          directions={directions}
-        />
-      </div>
-      <button className={`form-button ${showButton}`} onClick={updateRecipe}>Edit</button>&nbsp;
-      <button className={`form-button ${showDelete}`} onClick={handleDelete}>Delete</button>&nbsp;
-      <button className="form-button" onClick={handleBackButton}>Back</button>
     </div>
   )
 }

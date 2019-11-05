@@ -81,26 +81,28 @@ RSpec.describe Api::V1::RecipesController, type: :controller do
       user = FactoryBot.create(:user)
       user.confirm
       sign_in user
-      post_json = {
-        recipe: {
-          name: "Onion Fritters"
+
+      ingredients = [
+        {
+          name: "Onions"
         },
-        ingredients: [
-          {
-            name: "Onions"
-          },
-          {
-            name: "Chickpea Flour"
-          }
-        ],
-        directions: [
-          {
-            step: "Cut onions into thin slices"
-          },
-          {
-            name: "Add all spices"
-          }
-        ]
+        {
+          name: "Chickpea Flour"
+        }
+      ]
+
+      directions = [
+        {
+          step: "Cut onions into thin slices"
+        },
+        {
+          step: "Add all spices"
+        }
+      ]
+      post_json = {
+        name: "Onion Fritters",
+        ingredients: (ingredients).to_json,
+        directions: (directions).to_json
       }
 
       prev_count = Recipe.count
@@ -112,26 +114,29 @@ RSpec.describe Api::V1::RecipesController, type: :controller do
       user = FactoryBot.create(:user)
       user.confirm
       sign_in user
-      post_json = {
-        recipe: {
-          name: "Onion Fritters"
+
+      ingredients = [
+        {
+          name: "Onions"
         },
-        ingredients: [
-          {
-            name: "Onions"
-          },
-          {
-            name: "Chickpea Flour"
-          }
-        ],
-        directions: [
-          {
-            step: "Cut onions into thin slices"
-          },
-          {
-            step: "Add all spices"
-          }
-        ]
+        {
+          name: "Chickpea Flour"
+        }
+      ]
+
+      directions = [
+        {
+          step: "Cut onions into thin slices"
+        },
+        {
+          step: "Add all spices"
+        }
+      ]
+
+      post_json = {
+        name: "Onion Fritters",
+        ingredients: (ingredients).to_json,
+        directions: (directions).to_json
       }
 
       post :create, params: post_json, format: :json
@@ -154,27 +159,29 @@ RSpec.describe Api::V1::RecipesController, type: :controller do
       user = FactoryBot.create(:user)
       user.confirm
       sign_in user
+
+      ingredients = [
+        {
+          name: "Onions"
+        },
+        {
+          name: "Chickpea Flour"
+        }
+      ]
+
+      directions = [
+        {
+          step: "Cut onions into thin slices"
+        },
+        {
+          step: "Add all spices"
+        }
+      ]
       post_json = {
         id: recipe1.id,
-        recipe: {
-          name: "Potato Fritters"
-        },
-        ingredients: [
-          {
-            name: "Potato"
-          },
-          {
-            name: "Chickpea Flour"
-          }
-        ],
-        directions: [
-          {
-            step: "Cut potatoes into thin slices"
-          },
-          {
-            name: "Add all spices"
-          }
-        ]
+        name: "Onion Fritters",
+        ingredients: (ingredients).to_json,
+        directions: (directions).to_json
       }
 
       prev_count = Recipe.count
@@ -186,27 +193,29 @@ RSpec.describe Api::V1::RecipesController, type: :controller do
       user = FactoryBot.create(:user)
       user.confirm
       sign_in user
+
+      ingredients = [
+        {
+          name: "Onions"
+        },
+        {
+          name: "Chickpea Flour"
+        }
+      ]
+
+      directions = [
+        {
+          step: "Cut onions into thin slices"
+        },
+        {
+          step: "Add all spices"
+        }
+      ]
       post_json = {
         id: recipe1.id,
-        recipe: {
-          name: "Potato Fritters"
-        },
-        ingredients: [
-          {
-            name: "Potato"
-          },
-          {
-            name: "Chickpea Flour"
-          }
-        ],
-        directions: [
-          {
-            step: "Cut potatoes into thin slices"
-          },
-          {
-            step: "Add all spices"
-          }
-        ]
+        name: "Potato Fritters",
+        ingredients: (ingredients).to_json,
+        directions: (directions).to_json
       }
 
       put :update, params: post_json, format: :json
@@ -217,9 +226,9 @@ RSpec.describe Api::V1::RecipesController, type: :controller do
       expect(returned_json).to be_kind_of(Hash)
       expect(returned_json).to_not be_kind_of(Array)
       expect(returned_json["recipe"]["name"]).to eq "Potato Fritters"
-      expect(returned_json["ingredientList"][0]["name"]).to eq "Potato"
+      expect(returned_json["ingredientList"][0]["name"]).to eq "Onions"
       expect(returned_json["ingredientList"][1]["name"]).to eq "Chickpea Flour"
-      expect(returned_json["directionList"][0]["step"]).to eq "Cut potatoes into thin slices"
+      expect(returned_json["directionList"][0]["step"]).to eq "Cut onions into thin slices"
       expect(returned_json["directionList"][1]["step"]).to eq "Add all spices"
     end
   end
