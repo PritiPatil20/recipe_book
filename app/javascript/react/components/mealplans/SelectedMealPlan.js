@@ -18,10 +18,10 @@ const SelectedMealPlan = props => {
   )
 
   return(
-    <div>
-        <h5 className="text-center">Selected Date</h5>
-        <h6 className="text-center">{props.mealday}</h6>
-        <h5 className="text-center">Selected Recipes</h5>
+    <div className="select-form-container">
+        <h4 className="text-center"><strong>Selected Date</strong></h4>
+        <h5 className="text-center">{props.mealday}</h5>
+        <h4 className="text-center"><strong>Selected Recipes</strong></h4>
         <ul>{recipeTiles}</ul>
     </div>
   )

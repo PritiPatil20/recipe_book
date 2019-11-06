@@ -6,7 +6,7 @@ const RecipeIndexTile = props => {
     <div className="text-center">
       <br/>
       <Link to={`/recipes/${props.id}`}>
-        <h4 className="recipe-name-index">{props.name}</h4>
+        <h3 className="recipe-name-index">{props.name}</h3>
       </Link>
     </div>
   )
