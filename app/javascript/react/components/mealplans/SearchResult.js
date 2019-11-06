@@ -9,9 +9,9 @@ const SearchResult = props => {
 
   return(
     <div>
-      <li key={props.recipe.id}>
+      <li className="no-bullets" key={props.recipe.id}>
         <Link to={`/recipes/${props.recipe.id}`} className="searchResult">
-          <h6>{props.recipe.name}</h6>
+          <h4 className="recipe-name-index">{props.recipe.name}</h4>
         </Link>&nbsp;&nbsp;
         <button className="fas fa-plus-square" onClick={selectRecipe.bind(this,props.recipe)}></button>
       </li>

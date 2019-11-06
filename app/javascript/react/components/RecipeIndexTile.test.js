@@ -19,8 +19,8 @@ describe("RecipeIndexTile", () => {
     )
   })
 
-  it("renders an h6 tag with the recipe name", () => {
-    expect(wrapper.find("h4").text()).toBe("Upma")
+  it("renders an h3 tag with the recipe name", () => {
+    expect(wrapper.find("h3").text()).toBe("Upma")
   })
 
   it("renders a link that will lead to an recipe show page", () => {

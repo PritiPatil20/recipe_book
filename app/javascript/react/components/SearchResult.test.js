@@ -22,8 +22,8 @@ describe("SearchResult", () => {
     )
   })
 
-  it("renders an h6 tag with the recipe name", () => {
-    expect(wrapper.find("h6").text()).toBe("Burger")
+  it("renders an h4 tag with the recipe name", () => {
+    expect(wrapper.find("h4").text()).toBe("Burger")
   })
 
   it('should invoke the click function from props when clicked', () => {

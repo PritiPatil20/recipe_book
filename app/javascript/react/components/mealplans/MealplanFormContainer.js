@@ -137,14 +137,14 @@ const MealplanFormContainer = props => {
           <ErrorList
             errors={errors}
           />
-          <label htmlFor="mealday"><strong>Date:</strong>
+          <label htmlFor="mealday"><h5><strong>Date:</strong></h5>
             <DatePicker
               selected={mealday}
               onChange={handleChangeDate}
               minDate={new Date()}
             />
           </label>
-          <label htmlFor="recipeSearch"><strong>Recipe:</strong>
+          <label htmlFor="recipeSearch"><h5><strong>Recipe:</strong></h5>
             <input
               type="text"
               id="recipeSearch"
