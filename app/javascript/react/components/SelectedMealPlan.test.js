@@ -25,8 +25,8 @@ describe("SelectedMealPlan", () => {
     )
   })
 
-  it("renders an h6 tag with the mealplan day", () => {
-    expect(wrapper.find("h6").text()).toBe("October 24, 2019")
+  it("renders an h5 tag with the mealplan day", () => {
+    expect(wrapper.find("h5").text()).toBe("October 24, 2019")
   })
 
   it("should render 2 li tags", () => {

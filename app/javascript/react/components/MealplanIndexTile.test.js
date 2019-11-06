@@ -28,8 +28,8 @@ describe("MealplanIndexTile", () => {
     )
   })
 
-  it("renders an h5 tag with the mealplan day", () => {
-    expect(wrapper.find("h5").text()).toBe("Mealplan for October 24, 2019")
+  it("renders an h3 tag with the mealplan day", () => {
+    expect(wrapper.find("h3").text()).toBe("Mealplan for October 24, 2019")
   })
 
   it("should render 1 li tags", () => {
