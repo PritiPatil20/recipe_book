@@ -1,4 +1,7 @@
 Rails.application.configure do
+  ENV["REDISTOGO_URL"] = 'redis://localhost:6379'
+  uri = URI.parse(ENV["REDISTOGO_URL"])
+  REDIS = Redis.new(:url => uri)
   # Verifies that versions and hashed value of the package contents in the project's package.json
   config.webpacker.check_yarn_integrity = false
   # Settings specified here will take precedence over those in config/application.rb.
