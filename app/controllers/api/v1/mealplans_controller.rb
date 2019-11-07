@@ -13,6 +13,8 @@ class Api::V1::MealplansController < ApiController
         recipe1 = Recipe.find(recipe["id"])
         Mealrecipe.create(mealplan: mealplan, recipe: recipe1)
       }
+      reminder_date=(mealplan.mealday-1).to_datetime
+      ReminderJob.set(wait_until: reminder_date).perform_later(mealplan.id)
       render json: {
         mealplan: mealplan,
       }

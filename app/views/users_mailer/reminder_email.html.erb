@@ -1,0 +1,8 @@
+<h3>Reminder for your mealplan</h3>
+<h4> Date: <%= @day %> </h4>
+<h4> Recipes: </h4>
+<ul>
+  <% @recipes.each do |recipe| %>
+    <li><%= recipe.name %></li>
+  <% end %>
+</ul>

@@ -1,3 +1,15 @@
+GIT
+  remote: https://github.com/sinatra/sinatra.git
+  revision: 04a02ac2b7400ab456126dbfce5519cbc200b61a
+  specs:
+    rack-protection (2.0.7)
+      rack
+    sinatra (2.0.7)
+      mustermann (~> 1.0)
+      rack (~> 2.0)
+      rack-protection (= 2.0.7)
+      tilt (~> 2.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -76,6 +88,7 @@ GEM
       activesupport
     coderay (1.1.2)
     concurrent-ruby (1.1.5)
+    connection_pool (2.2.2)
     crass (1.0.5)
     database_cleaner (1.7.0)
     devise (4.7.1)
@@ -161,6 +174,7 @@ GEM
     minitest (5.12.2)
     multi_json (1.14.1)
     multi_xml (0.6.0)
+    mustermann (1.0.3)
     nio4r (2.5.2)
     nokogiri (1.10.4)
       mini_portile2 (~> 2.4.0)
@@ -206,6 +220,7 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
       ffi (~> 1.0)
+    redis (4.1.3)
     regexp_parser (1.6.0)
     responders (3.0.0)
       actionpack (>= 5.0)
@@ -246,6 +261,11 @@ GEM
       ruby_http_client (~> 3.3.0)
     shoulda-matchers (4.1.2)
       activesupport (>= 4.2.0)
+    sidekiq (5.2.7)
+      connection_pool (~> 2.2, >= 2.2.2)
+      rack (>= 1.5.0)
+      rack-protection (>= 1.5.0)
+      redis (>= 3.3.5, < 5)
     sprockets (3.7.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -305,10 +325,13 @@ DEPENDENCIES
   pry-rails
   puma (~> 3.11)
   rails (~> 5.2.3)
+  redis
   rspec-rails (= 3.8.2)
   sass-rails (~> 5.0)
   sendgrid-ruby
   shoulda-matchers
+  sidekiq (= 5.2.7)
+  sinatra!
   tzinfo-data
   uglifier (>= 1.3.0)
   valid_attribute
