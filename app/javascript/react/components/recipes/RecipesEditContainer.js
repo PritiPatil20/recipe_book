@@ -46,6 +46,7 @@ const RecipesEditContainer = props => {
     })
     .then(response => response.json())
     .then(body => {
+      debugger
       setRecipe(body.recipe)
       setIngredients(body.ingredients)
       setDirections(body.directions)

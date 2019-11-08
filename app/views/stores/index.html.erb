@@ -1,8 +1,9 @@
 <div class="text-center">
+  <br/><br/>
   <% if @stores.length>0 %>
     <% @stores.each do |store| %>
-      <h3><%= store["name"] %></h3>
-      <h5><%= store["vicinity"] %></h5>
+      <h2 class="recipe-name-index"><%= store["name"] %></h2>
+      <h4><%= store["vicinity"] %></h4>
       <br/>
     <% end %>
   <% else %>
