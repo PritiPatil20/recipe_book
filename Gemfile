@@ -53,8 +53,8 @@ gem 'shoulda-matchers', group: [:development, :test], require: false
 gem 'devise'
 gem 'foundation-rails', '~> 6.5'
 gem 'webpacker', '~> 3.3'
-gem "active_model_serializers"
-gem "geocoder"
+gem 'active_model_serializers'
+gem 'geocoder'
 gem 'sendgrid-ruby'
 gem 'google_places'
 gem 'fog-aws'
