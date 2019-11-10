@@ -232,4 +232,39 @@ RSpec.describe Api::V1::RecipesController, type: :controller do
       expect(returned_json["directionList"][1]["step"]).to eq "Add all spices"
     end
   end
+
+  describe "DELETE#update" do
+    it "delete a recipe" do
+      user = FactoryBot.create(:user)
+      user.role="admin"
+      user.save
+      user.confirm
+      sign_in user
+      post_json = {
+        id: recipe1.id,
+      }
+
+      prev_count = Recipe.count
+      delete :destroy, params: post_json, as: :json
+      expect(Recipe.count).to eq(prev_count-1)
+    end
+  end
+
+  describe "POST#search" do
+    it "search a recipe" do
+      user = FactoryBot.create(:user)
+      user.confirm
+      sign_in user
+      post_json = {
+        search_string: "Fried Rice",
+      }
+
+      post :search, params: post_json, format: :json
+      returned_json = JSON.parse(response.body)
+      
+      expect(response.status).to eq 200
+      expect(response.content_type).to eq("application/json")
+      expect(returned_json["recipes"][0]["name"]).to eq "Fried Rice"
+    end
+  end
 end
