@@ -47,6 +47,7 @@ const RecipesEditContainer = props => {
     .then(response => response.json())
     .then(body => {
       setRecipe(body.recipe)
+      photoUpload[0]=body.recipe.recipe_photo.url.slice(body.recipe.recipe_photo.url.lastIndexOf("/")+1,body.recipe.recipe_photo.url.length)
       setIngredients(body.ingredients)
       setDirections(body.directions)
     })
@@ -259,7 +260,7 @@ const RecipesEditContainer = props => {
             <aside>
               <ul>
                 {
-                  photoUpload.map(file => <li key={file.name}>{file.name} - {file.size} bytes</li>)
+                  photoUpload.map(file => <li key={file.name} className="no-bullets">{file.name}</li>)
                 }
               </ul>
             </aside>
